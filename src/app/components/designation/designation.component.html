@@ -1,0 +1,20 @@
+<div class="row">
+    @if(isLoading) {
+        <div class="col-12">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only"></span>
+              </div>
+        </div>
+    } @else {
+        @for (item of designationList; track $index) {
+            <div class="col-4">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                      <h5 class="card-title"> {{item.designation}} </h5>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
