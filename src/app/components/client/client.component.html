@@ -14,17 +14,22 @@
                             <th>Contact Number</th>
                             <th>City</th>
                             <th>State</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @for (item of clientList; track $index) {
                             <tr>
-                                <td>{{ $index }}</td>
+                                <td>{{ $index+1 }}</td>
                                 <td> {{item.companyName}} </td>
                                 <td> {{item.contactPersonName}} </td>
                                 <td>{{item.contactNo}} </td>
                                 <td> {{item.city}} </td>
                                 <td> {{item.state}} </td>
+                                <td>
+                                    <button class="btn btn-primary" (click)="onEdit(item)">Edit</button> 
+                                    <button class="btn btn-danger" (click)="onDelete(item.clientId)">Delete</button> 
+                                </td>
                             </tr>
                         }
                         
@@ -42,7 +47,18 @@
                 <div class="row">
                     <div class="col-6">
                         <label for="">Person Name</label>
-                        <input type="text" [(ngModel)]="clientObj.contactPersonName" class="form-control" />
+                        <input type="text" #personName="ngModel" minlength="5" required [(ngModel)]="clientObj.contactPersonName" class="form-control" />
+                        @if(personName.touched) {
+                            <div class="text-danger">
+                                @if(personName?.errors?.['required']) {
+                                    <span>This is required</span>
+                                }
+                                @if(personName?.errors?.['minlength']) {
+                                    <span>Atleast 5 characters are required</span>
+                                }
+                            </div>
+                        }
+                        
                     </div>
                     <div class="col-6">
                         <label for="">Contact Number</label>
@@ -82,7 +98,9 @@
                         <button class="btn btn-secondary">Reset</button>
                     </div>
                     <div class="col-6 text-center">
-                        <button class="btn btn-secondary" (click)="onClickSave()">Save Client</button>
+                        <button class="btn btn-secondary" (click)="onClickSave()">
+                            {{ clientObj.clientId != 0 ? "Update Client" : "Save Client" }}
+                        </button>
                     </div>
                 </div>
             </div>

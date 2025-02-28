@@ -19,11 +19,19 @@ export class ClientService {
     return this.http.get<APIResponse>(`${this.apiUrl}/GetAllClients`)
   }
 
+  getAllEmployees():Observable<APIResponse> {
+    return this.http.get<APIResponse>(`${this.apiUrl}/GetAllEmployee`)
+  }
+
   addUpdateClient(obj: Client):Observable<APIResponse> {
     return this.http.post<APIResponse>(`${this.apiUrl}/AddUpdateClient`, obj)
   }
 
   deleteClientById(id: number):Observable<APIResponse> {
     return this.http.delete<APIResponse>(`${this.apiUrl}/DeleteClientByClientId?clientId=${id}`)
+  }
+
+  addUpdateClientProject(obj: Client):Observable<APIResponse> {
+    return this.http.post<APIResponse>(`${this.apiUrl}/AddUpdateClientProject`, obj)
   }
 }

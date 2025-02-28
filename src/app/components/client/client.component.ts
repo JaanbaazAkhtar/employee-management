@@ -34,10 +34,29 @@ export class ClientComponent implements OnInit{
       if(res.result) {
         alert("Client Created Successfully")
         this.loadClient()
+        this.clientObj = new Client()
       } else {
         alert(res.message)
       }
     })
+  }
+
+  onDelete (clientId: number) {
+    const isDelete = confirm("Are you sure??")
+    if(isDelete) {
+      this.clientService.deleteClientById(clientId).subscribe((res: APIResponse) => {
+        if(res.result) {
+          alert("Client Deleted")
+          this.loadClient()
+        } else {
+          alert("The client could not be deleted")
+        }
+      })
+    }
+  }
+
+  onEdit(client: Client) {
+    this.clientObj = client
   }
 }
 
